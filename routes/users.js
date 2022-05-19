@@ -1,9 +1,12 @@
 import express from 'express';
+import { auth } from '../controllers/auth.js';
+
 const usersRouter = express.Router();
 
-import { getData } from '../controllers/usersController.js';
+import { login, test } from '../controllers/usersController.js';
 
-usersRouter.get('/', getData);
+usersRouter.post('/login', login);
+usersRouter.get('/test', auth, test);
 
 export { usersRouter }
 

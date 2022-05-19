@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 const app = express()
+
+
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true })
     .then(() => {
         console.log('Database connected');

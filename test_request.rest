@@ -1,0 +1,11 @@
+GET http://localhost:3001/api/v1/users/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVGVzdCIsImlhdCI6MTY1MjY4NjU5NX0.IgaEgTb8AGjn8rxSDw3F54sspUUhnrWWyzUTuCIQZjE
+
+###
+
+POST http://localhost:3001/api/v1/users/login
+Content-Type: application/json
+
+{
+    "username": "test"
+}
