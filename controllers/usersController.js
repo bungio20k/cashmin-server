@@ -7,9 +7,10 @@ dotenv.config();
 
 const register = async (req, res) => {
   const { username, password, email } = req.body;
-  if (!username || !password)
-    return res.status(400).json({ msg: "username and password are required!" });
-  const duplicated = user.findOne({ username: username }).exec();
+  // implemented in frontend, no need to check
+  // if (!username || !password) 
+  //   return res.status(400).json({ msg: "username and password are required!" });
+  const duplicated = await user.findOne({ username: username }).exec();
   if (duplicated) return res.sendStatus(409);
   try {
     const hashPwd = await bcrypt.hash(password, 10);
@@ -29,9 +30,9 @@ const login = async (req, res) => {
   if (!username || !password)
     return res.status(400).json({ msg: "username and password are required!" });
   const foundUser = await user.findOne({ username: username }).exec();
-  if (!foundUser) return res.sendStatus(401);
+  if (!foundUser) return res.sendStatus(404);
 
-  const match = await bcrypt.compare(pwd, foundUser.password);
+  const match = await bcrypt.compare(password, foundUser.password);
   if (match) {
     const token = jwt.sign(
       { username: foundUser.username },
@@ -41,7 +42,5 @@ const login = async (req, res) => {
     res.json({ accessToken: token });
   } else res.sendStatus(401);
 };
-
-const updateUser = (req, res) => {};
 
 export { register, login };
