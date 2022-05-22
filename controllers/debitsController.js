@@ -3,7 +3,7 @@ import { user } from "../models/userModel.js";
 const getAll = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
-        if (userData) res.send(userData.wallets);
+        if (userData) res.send(userData.debits);
         else res.sendStatus(404);
     }
     catch (err) { res.status(500).send({"error": err.message});}
@@ -13,12 +13,11 @@ const add = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
         if (!userData) { return res.status(404).send({"error": "user not found"}); }
-        const newWallet = req.body;
-        newWallet.isMain = (userData.wallets[0])? "false" : "true";
-        userData.wallets.push(newWallet);
+        const newDebit = req.body;
+        userData.debits.push(newDebit);
     
         userData.save().then(() => {
-            return res.status(200).send(`${newWallet.name} created sucessfully`);
+            return res.status(200).send(`${newDebit.name} created sucessfully`);
         });
     }
     catch (err) {
@@ -30,13 +29,12 @@ const del = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
         if (!userData) { return res.status(404).send({"error": "user not found"}); }
-        const { walletId, isMain } = req.body;
+        const id = req.body._id;
         
-        userData.wallets = userData.wallets.filter((w) => w._id != walletId);
-        if (isMain && userData.wallets[0]) userData.wallets[0].isMain = true;
+        userData.debits = userData.debits.filter((d) => d._id != id);
 
         userData.save().then(() => {
-            return res.status(200).send(`${walletId} delete sucessfully`);
+            return res.status(200).send(`${id} delete sucessfully`);
         });
     }
     catch (err) {

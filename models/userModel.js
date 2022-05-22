@@ -42,8 +42,9 @@ const userSchema = new Schema({
             date: Date,
         }]
     }],
-    debts: [{
+    debits: [{
         name: String,
+        isDebt: Boolean,
         amount: Number,
         categoryName: String,
         categoryIcon: String,
