@@ -1,4 +1,7 @@
-const jwt = require("jsonwebtoken");
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -6,16 +9,11 @@ const authMiddleware = (req, res, next) => {
     return res.sendStatus(401);
   const accessToken = authHeader.split(" ")[1];
 
-  jwt.verify(accessToken, process.env.ACCESS_SECRET_TOKEN, (err, decoded) => {
-    if (err) return res.sendStatus(403);
-    req.user = {
-      id: decoded.id,
-      fullname: decoded.fullname,
-      email: decoded.email,
-      username: decoded.username,
-    };
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(403).send({"msg": err.message});
+    req.username = decoded.username;
     next();
   });
 };
 
-module.exports = authMiddleware;
+export { authMiddleware }

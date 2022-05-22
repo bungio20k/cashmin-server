@@ -27,8 +27,9 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password)
-    return res.status(400).json({ msg: "username and password are required!" });
+  // implemented in frontend, no need to check
+  // if (!username || !password)
+  //   return res.status(400).json({ msg: "username and password are required!" });
   const foundUser = await user.findOne({ username: username }).exec();
   if (!foundUser) return res.sendStatus(404);
 

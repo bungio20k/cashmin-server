@@ -2,7 +2,7 @@ POST http://localhost:3001/api/v1/users/register
 Content-Type: application/json
 
 {
-    "username": "bungio20k",
+    "username": "Bungio20k",
     "password": "toan1402",
     "email": "bungio20k@gmail.com"
 }
@@ -18,4 +18,17 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3001/api/v1/wallets
-Authorization: BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJ1bmdpbzIwayIsImlhdCI6MTY1MzExNzI3MCwiZXhwIjoxNjUzMjAzNjcwfQ.HdW5hT_Ag_Ktz8ygeFnoXqBTGmLBcm_wqQeWDY9_jv4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJ1bmdpbzIwayIsImlhdCI6MTY1MzE3NzY2NiwiZXhwIjoxNjUzMjY0MDY2fQ.WkRLvTJXEBtH4w_YD54SRIJL7lWxNuVy6afhd9MsATU
+
+###
+POST http://localhost:3001/api/v1/wallets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJ1bmdpbzIwayIsImlhdCI6MTY1MzE3NzE5MiwiZXhwIjoxNjUzMjYzNTkyfQ._Ym17Z23GDd_Cxsb8JCZp6PyjcLxTLhYlvAzbapcZNQ
+
+{
+    "name" : "Ví 1",
+    "balance" : "1000000",
+    "categoryName": "Chung",
+    "categoryIcon": "Icon1",
+    "desc": "Ví chung",
+}

@@ -1,9 +1,11 @@
 import express from 'express';
-import { all } from '../controllers/walletsController.js';
+import { getAll, add, del } from '../controllers/walletsController.js';
 
 const walletsRouter = express.Router();
 
-walletsRouter.get('/', all);
+walletsRouter.get('/', getAll);
+walletsRouter.post('/', add);
+walletsRouter.delete('/', del);
 
 export { walletsRouter }
 
