@@ -40,6 +40,7 @@ const userSchema = new Schema({
             categoryName: String,
             categoryIcon: String,
             date: Date,
+            desc: String,
         }]
     }],
     debits: [{
