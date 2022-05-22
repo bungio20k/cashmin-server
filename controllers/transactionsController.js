@@ -1,5 +1,21 @@
 import {user} from '../models/userModel.js';
 
+const getAll = async (req, res) => {
+    try {
+        const userData = await user.findOne({ username: req.username });
+        if (!userData) 
+            return res.status(500).send({ "error": "User not found"});
+
+        // query form: GET /api/v1/transactions?wallet=<walletName>
+        const currentWalletName = req.query.wallet.toString();
+
+        const currentWallet = userData.wallets.filter( (wallet) => wallet.name === currentWalletName );
+
+        res.send(currentWallet);
+    }
+    catch (err) { res.status(500).send(err.message); }
+}
+
 const add = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
@@ -15,5 +31,6 @@ const add = async (req, res) => {
 }
 
 export {
+    getAll,
     add,
 }
