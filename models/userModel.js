@@ -28,21 +28,9 @@ const userSchema = new Schema({
         start: Date,
         end: Date,
     }],
-    mainWallet: { // use for displaying total money
-        name: String,
-        balance: Number,
-        categoryName: String,
-        categoryIcon: String,
-        desc: String, //description for current wallet
-        transactions: [{  // list of transactions for current wallet
-            amount: Number,
-            categoryName: String,
-            categoryIcon: String,
-            date: Date,
-        }]
-    },
     wallets: [{ // other wallets
         name: String,
+        isMain: Boolean, //is main wallet? -> use for displaying total money
         balance: Number,
         categoryName: String,
         categoryIcon: String,
