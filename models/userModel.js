@@ -50,7 +50,7 @@ const userSchema = new Schema({
         categoryName: String,
         categoryIcon: String,
         desc: String, //description for current debt
-        interval: String // "Daily" or "Weekly" or "Monthly"
+        deadline: Date,
     }],
     categories: [{
         name: String,

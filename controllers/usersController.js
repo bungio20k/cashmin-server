@@ -44,4 +44,15 @@ const login = async (req, res) => {
   } else res.sendStatus(401);
 };
 
-export { register, login };
+const userInfo = async (req, res) => {
+  try {
+    const userData = await user.findOne({ username: req.username });
+    if (!userData) return res.sendStatus(404);
+    return res.send(userData);
+  }
+  catch (err) {
+    return res.status(500).send({'error': err.message});
+  }
+}
+
+export { register, login, userInfo };
