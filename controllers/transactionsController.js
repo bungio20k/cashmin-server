@@ -9,9 +9,9 @@ const getAll = async (req, res) => {
         // query form: GET /api/v1/transactions?wallet=<walletName>
         const currentWalletName = req.query.wallet.toString();
 
-        const currentWallet = userData.wallets.filter( (wallet) => wallet.name === currentWalletName );
+        const currentWallet = userData.wallets.find( (wallet) => wallet.name === currentWalletName );
 
-        res.send(currentWallet);
+        res.send(currentWallet.transactions);
     }
     catch (err) { res.status(500).send(err.message); }
 }
