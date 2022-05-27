@@ -16,8 +16,8 @@ const add = async (req, res) => {
         const newDebit = req.body;
         userData.debits.push(newDebit);
     
-        userData.save().then(() => {
-            return res.status(200).send(`${newDebit.name} created sucessfully`);
+        userData.save().then((saved) => {
+            return res.status(200).send({_id: saved._id.toString()});
         });
     }
     catch (err) {

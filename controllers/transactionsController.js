@@ -1,15 +1,15 @@
-import {user} from '../models/userModel.js';
+import { user } from '../models/userModel.js';
 
 const getAll = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
-        if (!userData) 
-            return res.status(404).send({ "error": "User not found"});
+        if (!userData)
+            return res.status(404).send({ "error": "User not found" });
 
         // query form: GET /api/v1/transactions?wallet=<walletName>
         const currentWalletName = req.query.wallet.toString();
 
-        const currentWallet = userData.wallets.find( (wallet) => wallet.name === currentWalletName );
+        const currentWallet = userData.wallets.find((wallet) => wallet.name === currentWalletName);
 
         res.send(currentWallet.transactions);
     }
@@ -20,14 +20,14 @@ const add = async (req, res) => {
     try {
         const userData = await user.findOne({ username: req.username });
         if (!userData) return res.sendStatus(404);
-        const {walletId, ...newTransaction} = req.body;
-        
+        const { walletId, ...newTransaction } = req.body;
+
         const index = userData.wallets.findIndex((w) => w._id == walletId)
         userData.wallets[index].transactions.push(newTransaction);
 
-        userData.save().then(() => {res.status(200).send("new transaction saved")});
+        userData.save().then((saved) => { res.status(200).send({ _id: saved._id.toString() }) });
     }
-    catch (err) { res.status(500).send({"error": err.message});}
+    catch (err) { res.status(500).send({ "error": err.message }); }
 }
 
 export {
