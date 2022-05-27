@@ -18,7 +18,9 @@ const add = async (req, res) => {
         userData.wallets.push(newWallet);
 
         userData.save().then((saved) => {
-            return res.status(200).send({ _id: saved._id.toString() });
+            return res.status(200).send({
+                _id: saved.wallets[saved.wallets.length - 1]._id.toString()
+            });
         });
     }
     catch (err) {

@@ -25,7 +25,9 @@ const add = async (req, res) => {
         const index = userData.wallets.findIndex((w) => w._id == walletId)
         userData.wallets[index].transactions.push(newTransaction);
 
-        userData.save().then((saved) => { res.status(200).send({ _id: saved._id.toString() }) });
+        userData.save().then((saved) => {
+            res.status(200).send("");
+        });
     }
     catch (err) { res.status(500).send({ "error": err.message }); }
 }
