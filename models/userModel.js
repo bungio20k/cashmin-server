@@ -1,6 +1,18 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
+const defaultCategories = [
+    {name: 'Chung', icon: 'apps'},
+    {name: 'Ăn uống', icon: 'fast-food'},
+    {name: 'Thuê nhà', icon: 'home'},
+    {name: 'Điện nước', icon: 'bulb'},
+    {name: 'Đi lại', icon: 'bicycle'},
+    {name: 'Sửa chữa', icon: 'build'},
+    {name: 'Mua sắm', icon: 'basket'},
+    {name: 'Tiết kiệm', icon: 'analytics'},
+    {name: 'Dự phòng', icon: 'alert'},
+]
+
 const userSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
@@ -52,10 +64,13 @@ const userSchema = new Schema({
         desc: String, //description for current debt
         deadline: Date,
     }],
-    categories: [{
-        name: String,
-        icon: String,
-    }]
+    categories: {
+        type: [{
+            name: String,
+            icon: String,
+        }],
+        default: defaultCategories
+    }
 })
 
 const user = mongoose.model('user', userSchema)
