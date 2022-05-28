@@ -5,6 +5,7 @@ import { transactionsRouter } from './transactions.js';
 import { settingsRouter } from './settings.js';
 import { accountRouter } from './account.js';
 import { categoriesRouter } from './categories.js';
+import { limitsRouter } from './limits.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = (app) => {
@@ -15,6 +16,7 @@ const router = (app) => {
     app.use('/api/v1/settings', authMiddleware, settingsRouter);
     app.use('/api/v1/account', authMiddleware, accountRouter);
     app.use('/api/v1/categories', authMiddleware, categoriesRouter);
+    app.use('/api/v1/limits', authMiddleware, limitsRouter);
 }
 
 export { router }

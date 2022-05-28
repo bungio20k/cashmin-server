@@ -33,13 +33,29 @@ const userSchema = new Schema({
         monthStart: { type: Number, default: 1 }, // 1 - 31 base on js getDate() method
         yearStart: { type: Number, default: 1 }, // 0 - 11 base on js getMonth() method
     },
-    limits: [{
-        reset: String, // "Daily" or "Weekly" or "Monthly"
-        current: Number,
-        total: Number,
-        start: Date,
-        end: Date,
-    }],
+    // limits: [{
+    //     reset: String, // "Daily" or "Weekly" or "Monthly"
+    //     current: Number,
+    //     total: Number,
+    //     start: Date,
+    //     end: Date,
+    // }],
+    
+    limits: {
+        daily: {
+            isActive: { type: Boolean, default: false},
+            limit: Number
+        },
+        weekly: {
+            isActive: { type: Boolean, default: false},
+            limit: Number
+        },
+        monthly: {
+            isActive: { type: Boolean, default: false},
+            limit: Number
+        }
+    },
+
     wallets: [{ // other wallets
         name: String,
         isMain: Boolean, //is main wallet? -> use for displaying total money
