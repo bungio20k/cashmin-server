@@ -25,7 +25,7 @@ const userSchema = new Schema({
     settings: {
         language: { type: String, default: 'Tiếng việt' },
         dateFormat: { type: String, default: 'dd/mm/yyyy' },
-        currency: { type: String, default: 'VNĐ(đ)' },
+        currency: { type: String, default: 'VND' },
         hideMoney: { type: Boolean, default: true },
         reminder: { type: Boolean, default: false },
         reminderTime: String,
