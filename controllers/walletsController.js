@@ -46,10 +46,28 @@ const del = async (req, res) => {
     }
 }
 
+const sync = async (req, res) => {
+    try {
+        const userData = await user.findOne({ username: req.username });
+        if (!userData) { return res.status(404).send({ "error": "user not found" }); }
+        
+        const clientWallets = req.body.data;
+        userData.wallets = clientWallets;
+
+        userData.save().then((saved) => {
+            return res.status(200).send(saved.wallets);
+        });
+    }
+    catch (err) {
+        return res.status(500).send({ "error": err.message });
+    }
+}
 
 
 export {
     getAll,
     add,
-    del
+    del,
+    sync,
+
 }

@@ -2,15 +2,15 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const defaultCategories = [
-    {name: 'Chung', icon: 'apps'},
-    {name: 'Ăn uống', icon: 'fast-food'},
-    {name: 'Thuê nhà', icon: 'home'},
-    {name: 'Điện nước', icon: 'bulb'},
-    {name: 'Đi lại', icon: 'bicycle'},
-    {name: 'Sửa chữa', icon: 'build'},
-    {name: 'Mua sắm', icon: 'basket'},
-    {name: 'Tiết kiệm', icon: 'analytics'},
-    {name: 'Dự phòng', icon: 'alert'},
+    { id: 1, name: 'Chung', icon: 'apps' },
+    { id: 2, name: 'Ăn uống', icon: 'fast-food' },
+    { id: 3, name: 'Thuê nhà', icon: 'home' },
+    { id: 4, name: 'Điện nước', icon: 'bulb' },
+    { id: 5, name: 'Đi lại', icon: 'bicycle' },
+    { id: 6, name: 'Sửa chữa', icon: 'build' },
+    { id: 7, name: 'Mua sắm', icon: 'basket' },
+    { id: 8, name: 'Tiết kiệm', icon: 'analytics' },
+    { id: 9, name: 'Dự phòng', icon: 'alert' },
 ]
 
 const userSchema = new Schema({
@@ -18,9 +18,9 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String, required: true },
     profile: {
-        fullName: String,
-        phoneNumber: String,
-        birthday: Date,
+        fullName: { type: String, default: "" },
+        phoneNumber: { type: String, default: "" },
+        birthday: { type: Date }
     },
     settings: {
         language: { type: String, default: 'Tiếng việt' },
@@ -33,30 +33,23 @@ const userSchema = new Schema({
         monthStart: { type: Number, default: 1 }, // 1 - 31 base on js getDate() method
         yearStart: { type: Number, default: 1 }, // 0 - 11 base on js getMonth() method
     },
-    // limits: [{
-    //     reset: String, // "Daily" or "Weekly" or "Monthly"
-    //     current: Number,
-    //     total: Number,
-    //     start: Date,
-    //     end: Date,
-    // }],
-    
     limits: {
         daily: {
-            isActive: { type: Boolean, default: false},
+            isActive: { type: Boolean, default: false },
             limit: Number
         },
         weekly: {
-            isActive: { type: Boolean, default: false},
+            isActive: { type: Boolean, default: false },
             limit: Number
         },
         monthly: {
-            isActive: { type: Boolean, default: false},
+            isActive: { type: Boolean, default: false },
             limit: Number
         }
     },
 
-    wallets: [{ // other wallets
+    wallets: [{
+        id: Number, // local id
         name: String,
         isMain: Boolean, //is main wallet? -> use for displaying total money
         balance: Number,
@@ -72,6 +65,7 @@ const userSchema = new Schema({
         }]
     }],
     debits: [{
+        id: Number, // local id
         name: String,
         isDebt: Boolean,
         amount: Number,
@@ -82,6 +76,7 @@ const userSchema = new Schema({
     }],
     categories: {
         type: [{
+            id: Number, // local id
             name: String,
             icon: String,
         }],

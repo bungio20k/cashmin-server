@@ -76,4 +76,27 @@ const remove = async (req, res) => {
   }
 };
 
-export { add, update, remove };
+const sync = async (req, res) => {
+  try {
+    const userData = await user.findOne({ username: req.username });
+    if (!userData) {
+      return res.status(404).send({ error: "user not found" });
+    }
+    const clientCategories = req.body;
+    userData.categories = clientCategories;
+
+    userData
+      .save()
+      .then((saved) => {
+        return res.sendStatus(200)
+      })
+      .catch((err) => {
+        return res.status(500).send(err.message);
+      });
+
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+};
+
+export { add, update, remove, sync };

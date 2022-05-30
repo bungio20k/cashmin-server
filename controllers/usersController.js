@@ -7,9 +7,6 @@ dotenv.config();
 
 const register = async (req, res) => {
   const { username, password, email } = req.body;
-  // implemented in frontend, no need to check
-  // if (!username || !password) 
-  //   return res.status(400).json({ msg: "username and password are required!" });
   const duplicated = await user.findOne({ username: username }).exec();
   if (duplicated) return res.sendStatus(409);
   try {
@@ -27,9 +24,6 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-  // implemented in frontend, no need to check
-  // if (!username || !password)
-  //   return res.status(400).json({ msg: "username and password are required!" });
   const foundUser = await user.findOne({ username: username }).exec();
   if (!foundUser) return res.sendStatus(404);
 
@@ -55,4 +49,15 @@ const userInfo = async (req, res) => {
   }
 }
 
-export { register, login, userInfo };
+const syncData = async (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+}
+
+export { 
+  register, 
+  login, 
+  userInfo,
+  syncData,
+}
+
