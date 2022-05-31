@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
 
+import nodemailer from 'nodemailer';
+
 const register = async (req, res) => {
   const { username, password, email } = req.body;
   const duplicated = await user.findOne({ username: username }).exec();
@@ -45,7 +47,7 @@ const userInfo = async (req, res) => {
     return res.send(userData);
   }
   catch (err) {
-    return res.status(500).send({'error': err.message});
+    return res.status(500).send({ 'error': err.message });
   }
 }
 
@@ -54,10 +56,52 @@ const syncData = async (req, res) => {
   res.send(req.body);
 }
 
-export { 
-  register, 
-  login, 
+const retrieve = async (req, res) => {
+  const { username } = req.body;
+  const foundUser = await user.findOne({ username: username }).exec();
+  if (!foundUser) return res.sendStatus(404);
+  
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'bungio20k@gmail.com',
+      pass: 'wqnisrvfwoxriags'
+    }
+  });
+
+  const mailOptions = {
+    from: 'bungio20k@gmail.com',
+    to: foundUser.email,
+    subject: 'Mật khẩu mới cho tài khoản Cashmin',
+    text: `Chào ${username}, mật khẩu mới cho tài khoản Cashmin của bạn là: Cashmin1, hãy đăng nhập vào ứng dụng và đổi mật khẩu để đảm bảo an toàn`
+  };
+
+  const hashPwd = await bcrypt.hash('Cashmin1', 10);
+  foundUser.password = hashPwd;
+  foundUser
+    .save()
+    .then(() => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error)
+        }
+        else {
+          console.log(info);
+          return res.status(200).send('ok');
+        }
+      })
+    })
+    .catch(err => {
+      return res.status(500).send({ "err": err.message });
+    })
+
+}
+
+export {
+  register,
+  login,
   userInfo,
   syncData,
+  retrieve
 }
 

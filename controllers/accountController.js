@@ -43,5 +43,5 @@ const updatePassword = async (req, res) => {
 
 export {
     updateProfile,
-    updatePassword
+    updatePassword,
 }
