@@ -20,6 +20,6 @@ app.use(cors())
 
 router(app)
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is listening on 3001')
 })
