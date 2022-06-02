@@ -17,6 +17,8 @@ const router = (app) => {
     app.use('/api/v1/account', authMiddleware, accountRouter);
     app.use('/api/v1/categories', authMiddleware, categoriesRouter);
     app.use('/api/v1/limits', authMiddleware, limitsRouter);
+
+    app.get('/', (req, res) => {res.send('server is running')});
 }
 
 export { router }
